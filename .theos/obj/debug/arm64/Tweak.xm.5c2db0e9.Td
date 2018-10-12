@@ -1,0 +1,23 @@
+/Users/jakekaslewicz/Development/straw/.theos/obj/debug/arm64/Tweak.xm.5c2db0e9.o: \
+  /Users/jakekaslewicz/Development/straw/.theos/obj/debug/arm64/Tweak.xm.mm \
+  /Users/jakekaslewicz/theos/Prefix.pch \
+  /Users/jakekaslewicz/theos/vendor/include/_Prefix/BackwardsCompat.h \
+  /Users/jakekaslewicz/theos/vendor/include/_Prefix/IOSMacros.h \
+  /Users/jakekaslewicz/theos/vendor/include/HBLog.h \
+  /Users/jakekaslewicz/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
+  /Users/jakekaslewicz/Development/straw/headers.h \
+  /Users/jakekaslewicz/theos/vendor/include/substrate.h
+
+/Users/jakekaslewicz/theos/Prefix.pch:
+
+/Users/jakekaslewicz/theos/vendor/include/_Prefix/BackwardsCompat.h:
+
+/Users/jakekaslewicz/theos/vendor/include/_Prefix/IOSMacros.h:
+
+/Users/jakekaslewicz/theos/vendor/include/HBLog.h:
+
+/Users/jakekaslewicz/theos/vendor/include/CoreFoundation/CFLogUtilities.h:
+
+/Users/jakekaslewicz/Development/straw/headers.h:
+
+/Users/jakekaslewicz/theos/vendor/include/substrate.h:

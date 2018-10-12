@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.thecasle.strawpref</string>
+			<key>key</key>
+			<string>tweakEnabled</string>
+			<key>label</key>
+			<string>Enable tweak</string>
+			<key>PostNotification</key>
+			<string>com.thecasle.strawpref/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Disable notification within now playing app.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.thecasle.strawpref</string>
+			<key>key</key>
+			<string>appDisabled</string>
+			<key>label</key>
+			<string>Disable Now Playing App</string>
+			<key>PostNotification</key>
+			<string>com.thecasle.strawpref/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Disable notification in NC/Lockscreen.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.thecasle.strawpref</string>
+			<key>key</key>
+			<string>lockDisabled</string>
+			<key>label</key>
+			<string>Disable NC</string>
+			<key>PostNotification</key>
+			<string>com.thecasle.strawpref/ReloadPrefs</string>
+		</dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>footerText</key>
+            <string>Enable screen wake for song change.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>default</key>
+            <false/>
+            <key>defaults</key>
+            <string>com.thecasle.strawpref</string>
+            <key>key</key>
+            <string>wakeEnabled</string>
+            <key>label</key>
+            <string>Enable Screen Wake</string>
+            <key>PostNotification</key>
+            <string>com.thecasle.strawpref/ReloadPrefs</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+            <key>label</key>
+            <string>Haptic</string>
+		</dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSegmentCell</string>
+            <key>defaults</key>
+            <string>com.thecasle.strawpref</string>
+            <key>detail</key>
+            <string>PSListItemsController</string>
+            <key>key</key>
+            <string>hapticMode</string>
+            <key>default</key>
+            <string>0</string>
+            <key>validTitles</key>
+            <array>
+                <string>None</string>
+                <string>Locked</string>
+                <string>Anywhere</string>
+            </array>
+            <key>validValues</key>
+            <array>
+                <string>0</string>
+                <string>1</string>
+                <string>2</string>
+            </array>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Any changes require a respring.</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>respring</string>
+			<key>alignment</key>
+			<string>center</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Respring</string>
+		</dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>footerAlignment</key>
+            <string>2</string>
+            <key>footerText</key>
+            <string>Big thanks to ipad_kid</string>
+        </dict>
+	</array>
+	<key>title</key>
+	<string>Straw</string>
+</dict>
+</plist>
