@@ -1,7 +1,7 @@
 Package: com.thecasle.straw
 Name: straw
 Depends: mobilesubstrate, ws.hbang.common, net.limneos.libbulletin (>= 0.1-142)
-Version: 0.0.5
+Version: 0.0.5-1
 Architecture: iphoneos-arm
 Description: Creates banner on music item change
 Maintainer: Jake Kaslewicz

@@ -83,12 +83,6 @@ static void updateNotificationLabel(CFNotificationCenterRef center, void *observ
             
             [TCMediaNotificationController sharedInstance].lastSongName = songName;
             
-            if(playingNotification){
-                SBApplication *currentApp = [sb _accessibilityFrontMostApplication];
-                if (currentApp == nowPlayingApp){
-                    return;
-                }
-            }
             if(((int)modeHaptic) == 0){
                 // nothing lol
             } else if(((int)modeHaptic) == 1){
@@ -110,6 +104,13 @@ static void updateNotificationLabel(CFNotificationCenterRef center, void *observ
             
             if(lockNotification){
                 if (sb.isLocked){
+                    return;
+                }
+            }
+            
+            if(playingNotification && !sb.isLocked){
+                SBApplication *currentApp = [sb _accessibilityFrontMostApplication];
+                if (currentApp == nowPlayingApp){
                     return;
                 }
             }
