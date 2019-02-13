@@ -127,6 +127,7 @@
 
 @interface NCNotificationRequest : NSObject
 -(BBBulletin*)bulletin;
+@property (nonatomic, retain) NSString *categoryIdentifier;
 @end
 
 @interface NCNotificationLongLookViewController : NSObject

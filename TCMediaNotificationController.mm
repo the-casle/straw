@@ -72,12 +72,12 @@ static void updateNotificationLabel(CFNotificationCenterRef center, void *observ
             NSString *albumName = musicDict[(__bridge NSString *)kMRMediaRemoteNowPlayingInfoAlbum];
             
             // check to make sure everything exists
-            if (!songName || !artistName || !albumName) {
+            if (!songName && !artistName && !albumName) {
                 return;
             }
             
             // prevent repeat bulletin
-            if([songName isEqualToString: [TCMediaNotificationController sharedInstance].lastSongName]){
+            if(songName && [songName isEqualToString: [TCMediaNotificationController sharedInstance].lastSongName]){
                 return;
             }
             
@@ -117,17 +117,76 @@ static void updateNotificationLabel(CFNotificationCenterRef center, void *observ
             
             // check if apple music, otherwise do else
             if([appBundleId isEqualToString:@"com.apple.Music"]){
-                NSString * message = [NSString stringWithFormat:@"%@ — %@", artistName, albumName];
-                // post the bulletin
-                [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
-                                                                                   message: message
-                                                                                  bundleID:appBundleId];
+                if(songName && artistName && albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@ — %@", artistName, albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(songName && artistName){
+                    NSString * message = [NSString stringWithFormat:@"%@", artistName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if (songName && albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@", albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if (artistName && albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@", albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: @"Unknown"
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(songName){
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
+                                                                                       message: nil
+                                                                                      bundleID:appBundleId];
+                } else if(artistName){
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: artistName
+                                                                                       message: nil
+                                                                                      bundleID:appBundleId];
+                }else if(albumName){
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: albumName
+                                                                                       message: nil
+                                                                                      bundleID:appBundleId];
+                }
             } else {
-                NSString * message = [NSString stringWithFormat:@"%@\n%@ — %@", songName, artistName, albumName];
-                // post the bulletin
-                [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                   message: message
-                                                                                  bundleID:appBundleId];
+                if(songName && artistName && albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@\n%@ — %@", songName, artistName, albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(songName && artistName){
+                    NSString * message = [NSString stringWithFormat:@"%@\n%@", songName, artistName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(songName && albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@\n%@", songName, albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(artistName && albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@ — %@", artistName, albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(songName){
+                    NSString * message = [NSString stringWithFormat:@"%@", songName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(artistName){
+                    NSString * message = [NSString stringWithFormat:@"%@", artistName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                } else if(albumName){
+                    NSString * message = [NSString stringWithFormat:@"%@", albumName];
+                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
+                                                                                       message: message
+                                                                                      bundleID:appBundleId];
+                }
             }
         });
     }
