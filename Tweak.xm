@@ -23,7 +23,7 @@
 
 %hook NCNotificationCombinedListViewController
 -(BOOL)insertNotificationRequest:(NCNotificationRequest *)request forCoalescedNotification:(id)arg2{
-    if(request.categoryIdentifier && [request.categoryIdentifier isEqualToString: @"StrawMedia"]){
+    if(request.categoryIdentifier && [request.categoryIdentifier isEqualToString: @"libbulletin"]){
         return 0;
     } else {
         return %orig;

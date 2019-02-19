@@ -4,6 +4,29 @@
 #import <SpringBoard/SBApplication.h>
 #include <objc/runtime.h>
 
+
+@interface JBBulletinManager : NSObject
++(id)sharedInstance;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message bundleID:(NSString *)bundleID;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message bundleID:(NSString *)bundleID soundPath:(NSString *)soundPath;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message bundleID:(NSString *)bundleID soundID:(int)inSoundID;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message overrideBundleImage:(UIImage *)overridBundleImage;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message overrideBundleImage:(UIImage *)overridBundleImage soundPath:(NSString *)soundPath;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message overridBundleImage:(UIImage *)overridBundleImage soundID:(int)inSoundID;
+-(id)showBulletinWithTitle:(NSString *)title message:(NSString *)message bundleID:(NSString *)bundleID hasSound:(BOOL)hasSound soundID:(int)soundID vibrateMode:(int)vibrate soundPath:(NSString *)soundPath attachmentImage:(UIImage *)attachmentImage overrideBundleImage:(UIImage *)overrideBundleImage;
+
+// private
+-(void)setNextBulletinDestination:(int)destination;
+-(int)nextBulletinDestination;
+
+-(NSMutableArray *)cachedLockscreenBulletins;
+
+-(NSMutableArray *)attachmentImagesForIDs;
+-(NSMutableArray *)bundleImagesForIDs;
+-(id)notificationController;
+@end
+
+
 @protocol BBObserverDelegate <NSObject>
 -(void)observer:(id)arg1 addBulletin:(id)arg2 forFeed:(NSInteger)arg3 playLightsAndSirens:(BOOL)arg4 withReply:(/*^block*/id)arg5;
 -(void)observer:(id)arg1 addBulletin:(id)arg2 forFeed:(NSUInteger)arg3;
