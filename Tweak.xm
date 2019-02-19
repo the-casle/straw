@@ -21,13 +21,9 @@
 }
 %end
 
-%hook NCNotificationPriorityList
--(NSUInteger)insertNotificationRequest:(NCNotificationRequest *) request{
-    if(request.categoryIdentifier && [request.categoryIdentifier isEqualToString: @"libbulletin"]){
-        if([[%c(JBBulletinManager) sharedInstance] cachedLockscreenBulletins].count > 0){
-            BBBulletin *bulletin=[[[%c(JBBulletinManager) sharedInstance] cachedLockscreenBulletins] objectAtIndex:0];
-            [[[%c(JBBulletinManager) sharedInstance] cachedLockscreenBulletins] removeObject:bulletin];
-        }
+%hook NCNotificationCombinedListViewController
+-(BOOL)insertNotificationRequest:(NCNotificationRequest *)request forCoalescedNotification:(id)arg2{
+    if(request.categoryIdentifier && [request.categoryIdentifier isEqualToString: @"StrawMedia"]){
         return 0;
     } else {
         return %orig;

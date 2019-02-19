@@ -54,6 +54,34 @@ static NSInteger modeHaptic;
 
 }
 
+static void postNotification(NSString *title, NSString *message, NSString *sectionID) {
+    BBBulletinRequest *bulletin = [[objc_getClass("BBBulletinRequest") alloc] init];
+    
+    CFUUIDRef uuidObject = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *uuidStr = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuidObject);
+
+    bulletin.section = sectionID;
+    bulletin.sectionID = sectionID;
+    bulletin.bulletinID = uuidStr;
+    bulletin.bulletinVersionID = uuidStr;
+    bulletin.recordID = uuidStr;
+    bulletin.publisherBulletinID=[NSString stringWithFormat:@"-bulletin-manager-%@",uuidStr];
+    bulletin.categoryID = @"StrawMedia";
+    bulletin.title = title;
+    bulletin.message = message;
+    
+    bulletin.date=[NSDate date] ;
+    bulletin.lastInterruptDate=[NSDate date] ;
+    [bulletin setClearable:YES];
+    
+    if (sectionID){
+        BBAction *defaultAction = [objc_getClass("BBAction") actionWithLaunchBundleID:sectionID callblock:nil];
+        [bulletin setDefaultAction:defaultAction];
+    }
+    SBLockScreenNotificationListController *listController = ([[objc_getClass("UIApplication") sharedApplication] respondsToSelector:@selector(notificationDispatcher)] && [[[objc_getClass("UIApplication") sharedApplication] notificationDispatcher] respondsToSelector:@selector(notificationSource)]) ? [[[objc_getClass("UIApplication") sharedApplication] notificationDispatcher] notificationSource]  : [[[objc_getClass("SBLockScreenManager") sharedInstanceIfExists] lockScreenViewController] valueForKey:@"notificationController"];
+    [listController observer:[listController valueForKey:@"observer"] addBulletin:bulletin forFeed:14];
+}
+
 // The custom method that will receive the notification
 static void updateNotificationLabel(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
@@ -119,73 +147,45 @@ static void updateNotificationLabel(CFNotificationCenterRef center, void *observ
             if([appBundleId isEqualToString:@"com.apple.Music"]){
                 if(songName && artistName && albumName){
                     NSString * message = [NSString stringWithFormat:@"%@ — %@", artistName, albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(songName, message, appBundleId);
                 } else if(songName && artistName){
                     NSString * message = [NSString stringWithFormat:@"%@", artistName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(songName, message, appBundleId);
                 } else if (songName && albumName){
                     NSString * message = [NSString stringWithFormat:@"%@", albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(songName, message, appBundleId);
                 } else if (artistName && albumName){
                     NSString * message = [NSString stringWithFormat:@"%@", albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: @"Unknown"
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(@"Unknown", message, appBundleId);
                 } else if(songName){
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: songName
-                                                                                       message: nil
-                                                                                      bundleID:appBundleId];
+                    postNotification(songName, @"", appBundleId);
                 } else if(artistName){
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: artistName
-                                                                                       message: nil
-                                                                                      bundleID:appBundleId];
+                    postNotification(artistName, @"", appBundleId);
                 }else if(albumName){
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: albumName
-                                                                                       message: nil
-                                                                                      bundleID:appBundleId];
+                    postNotification(albumName, @"", appBundleId);
                 }
             } else {
                 if(songName && artistName && albumName){
                     NSString * message = [NSString stringWithFormat:@"%@\n%@ — %@", songName, artistName, albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 } else if(songName && artistName){
                     NSString * message = [NSString stringWithFormat:@"%@\n%@", songName, artistName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 } else if(songName && albumName){
                     NSString * message = [NSString stringWithFormat:@"%@\n%@", songName, albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 } else if(artistName && albumName){
                     NSString * message = [NSString stringWithFormat:@"%@ — %@", artistName, albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 } else if(songName){
                     NSString * message = [NSString stringWithFormat:@"%@", songName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 } else if(artistName){
                     NSString * message = [NSString stringWithFormat:@"%@", artistName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 } else if(albumName){
                     NSString * message = [NSString stringWithFormat:@"%@", albumName];
-                    [[objc_getClass("JBBulletinManager") sharedInstance] showBulletinWithTitle: nowPlayingApp.displayName
-                                                                                       message: message
-                                                                                      bundleID:appBundleId];
+                    postNotification(nowPlayingApp.displayName, message, appBundleId);
                 }
             }
         });
