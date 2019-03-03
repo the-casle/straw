@@ -11,6 +11,8 @@
 
 // ---------------------------------------------
 
+static BOOL lockNotification;
+
 %hook SBMediaController
 %property (nonatomic, retain) TCMediaNotificationController *musicNotifController;
 -(id) init {
@@ -23,7 +25,7 @@
 
 %hook NCNotificationCombinedListViewController
 -(BOOL)insertNotificationRequest:(NCNotificationRequest *)request forCoalescedNotification:(id)arg2{
-    if(request.categoryIdentifier && [request.categoryIdentifier isEqualToString: @"libbulletin"]){
+    if(request.categoryIdentifier && [request.categoryIdentifier isEqualToString: @"libbulletin"] && lockNotification){
         return 0;
     } else {
         return %orig;
@@ -40,8 +42,10 @@
     HBPreferences *settings = [[HBPreferences alloc] initWithIdentifier:@"com.thecasle.strawpref"];
     [settings registerDefaults:@{
                                  @"tweakEnabled": @YES,
+        @"lockDisabled": @NO,
                                  }];
     BOOL tweakEnabled = [settings boolForKey:@"tweakEnabled"];
+    lockNotification = [settings boolForKey:@"lockDisabled"];
     
     if(tweakEnabled) {
         %init;

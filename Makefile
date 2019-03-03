@@ -1,3 +1,6 @@
+ARCHS = arm64
+TARGET = iphone:clang:11.2:11.1
+
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = straw
