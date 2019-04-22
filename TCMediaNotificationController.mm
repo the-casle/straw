@@ -38,7 +38,6 @@ static void hapticFeedbackHard(){
 @end
 
 @interface SpringBoard (straw)
-- (void)_simulateLockButtonPress;
 - (void)_simulateHomeButtonPress;
 @end
 
